@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import edu.iesam.loginplayground.R
+import edu.iesam.loginplayground.feature.login.domain.ErrorApp
 import edu.iesam.loginplayground.feature.login.domain.SignInUseCase
+import edu.iesam.loginplayground.feature.login.domain.User
 
 class LoginActivity : AppCompatActivity() {
 
@@ -24,10 +26,15 @@ class LoginActivity : AppCompatActivity() {
     fun test() {
         val signInUse = SignInUseCase()
         val userResult = signInUse("asd", "asd")
-        if (userResult.isSuccess) {
-            //usuario
-        } else {
-            //
-        }
+        userResult.fold(
+            {isLoginSuccess(it)},
+            {isFailure(it as ErrorApp)}
+        )
+    }
+    fun isLoginSuccess(user:User){
+
+    }
+    fun isFailure(errorApp: ErrorApp){
+        val error = errorApp as ErrorApp.PasswordError
     }
 }

@@ -7,8 +7,7 @@ class SignInUseCase(private val userRepository: UserRepository) {
         if (user.password == password) {
             return Result.success(user)
         } else {
-            return Result.failure(ErrorApp.LoginError)
+            return Result.failure(ErrorApp.PasswordError)
         }
     }
-
 }
